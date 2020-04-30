@@ -14,9 +14,10 @@ function Main (props) {
   const [formState, setFormState] = useState({
     module: '',
     callableFunction: '',
-    input: ''
+    input: '',
+    input2: ''
   });
-  const { module, callableFunction, input } = formState;
+  const { module, callableFunction, input, input2 } = formState;
 
   useEffect(() => {
     const modules = Object.keys(api.tx)
@@ -86,13 +87,23 @@ function Main (props) {
           />
         </Form.Field>
         <Form.Field>
+          <Input
+            onChange={onChange}
+            label='Input'
+            fluid
+            placeholder='May not be needed'
+            state='input2'
+            type='text'
+          />
+        </Form.Field>
+        <Form.Field>
           <TxButton
             accountPair={accountPair}
             label='Call'
             setStatus={setStatus}
             type='TRANSACTION'
             attrs={{
-              params: input ? [input] : null,
+              params: input2 ? [input, input2] : (input ? [input] : null),
               tx: api.tx[module] && api.tx[module][callableFunction]
             }}
           />
